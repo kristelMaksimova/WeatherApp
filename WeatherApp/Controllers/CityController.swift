@@ -7,9 +7,8 @@
 
 import UIKit
 import CoreData
-import Foundation
 
-class CityController: UIViewController,UITableViewDataSource, UITableViewDelegate {
+class CityController: UIViewController {
     
     //MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
@@ -17,11 +16,16 @@ class CityController: UIViewController,UITableViewDataSource, UITableViewDelegat
     @IBOutlet var cityTemperature: UILabel!
     
     
-    private var cityList: [City] = []
-  
+    // MARK: - Public properties
     var weatherReport: Weather!
+    
+    
+    //MARK: - Private Properties
+    private var cityList: [City] = []
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    
+    //MARK: - Override
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
@@ -29,12 +33,27 @@ class CityController: UIViewController,UITableViewDataSource, UITableViewDelegat
     }
     
     
-    @IBAction func buttonGoTapped(_ sender: Any) {
-        
-        self.save(cityName: cityTextField.text!)
-        networking(text: cityTextField.text!)
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if  let weatherVC = segue.destination as? WeatherController,
+            let weatherReport = sender as? Weather {
+            weatherVC.weatherReport = weatherReport
+        }
     }
     
+    
+    //MARK: - IBActoin
+    @IBAction func buttonGoTapped(_ sender: Any) {
+        if cityTextField.text! == "" {
+            print("Нужен алерт")
+        } else {
+            self.save(cityName: cityTextField.text!)
+            networking(text: cityTextField.text!)
+        }
+    }
+    
+    
+    // MARK: - Private methods
     private func save(cityName: String) {
         StorageManager.shared.save(cityName) { city in
             self.cityList.append(city)
@@ -56,12 +75,11 @@ class CityController: UIViewController,UITableViewDataSource, UITableViewDelegat
         }
         
     }
-    
 }
 
-//MARK: - Table view data source
 
-extension CityController {
+//MARK: - Table view data source
+extension CityController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         cityList.count
@@ -72,16 +90,8 @@ extension CityController {
         let city = cityList[indexPath.row]
         cell.cityName.text = city.title!
         
-        
         return cell
-        
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let city = cityList[indexPath.row]
-        networking(text: city.title!)
-        self.performSegue(withIdentifier: "Go", sender: weatherReport)
-        }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let city = cityList[indexPath.row]
@@ -91,35 +101,29 @@ extension CityController {
             tableView.deleteRows(at: [indexPath], with: .automatic)
             StorageManager.shared.delete(city)
         }
-       }
-    
-    // MARK: - Navigation
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      
-        if  let weatherVC = segue.destination as? WeatherController,
-            let weatherReport = sender as? Weather {
-            weatherVC.weatherReport = weatherReport
-        }
-        
-        guard let indexPath = tableView.indexPathForSelectedRow else { return }
-        let product = cityList[indexPath.row]
-        guard let productsVC = segue.destination as? WeatherController else { return }
-        productsVC.networkingTwo(text: product.title!)
-        
     }
 }
 
-// MARK: - Networking
 
+// MARK: - Table view delegate
+extension CityController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let city = cityList[indexPath.row]
+        networking(text: city.title!)
+    }
+}
+
+
+// MARK: - Networking
 extension CityController {
     
+    //API KEY: http://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=b6d1e53fa1e2de6d512ae99663b7137e&units=metric
+    
     func networking(text: String) {
-        guard cityTextField.text?.isEmpty == false else {return}
-        
         var components = URLComponents(string: "http://api.openweathermap.org/data/2.5/weather")
         let cityQuery = URLQueryItem(name: "q", value: text)
-        let appIdQuery = URLQueryItem(name: "appid", value: "c46cb767269fcb488c33372509d677a2")
+        let appIdQuery = URLQueryItem(name: "appid", value: "b6d1e53fa1e2de6d512ae99663b7137e")
         let unitsQuery = URLQueryItem(name: "units", value: "metric")
         
         components?.queryItems = [cityQuery, appIdQuery, unitsQuery]
@@ -146,5 +150,5 @@ extension CityController {
         }
         dataTask.resume()
     }
-    
-    }
+}
+
