@@ -47,6 +47,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		204D939A28919DCB0063588E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				207D5F88288EB6F700D31B67 /* Main.storyboard */,
+				207D5F90288EB6F900D31B67 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		204D939B28919DF60063588E /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				207D5F82288EB6F700D31B67 /* AppDelegate.swift */,
+				207D5F84288EB6F700D31B67 /* SceneDelegate.swift */,
+				207D5F8E288EB6F900D31B67 /* Assets.xcassets */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		204D939C28919E4A0063588E /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				20E31C5528900A1800B69EF3 /* StorageManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		204D939D28919E700063588E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				20E31C53288EDDD900B69EF3 /* CityCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		207D5F76288EB6F700D31B67 = {
 			isa = PBXGroup;
 			children = (
@@ -66,36 +101,33 @@
 		207D5F81288EB6F700D31B67 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				20E31C5528900A1800B69EF3 /* StorageManager.swift */,
-				207D5F82288EB6F700D31B67 /* AppDelegate.swift */,
-				207D5F84288EB6F700D31B67 /* SceneDelegate.swift */,
-				207D5FA0288EBE0C00D31B67 /* Model */,
-				207D5F88288EB6F700D31B67 /* Main.storyboard */,
-				20E31C53288EDDD900B69EF3 /* CityCell.swift */,
-				207D5F9D288EBA1500D31B67 /* Controllers */,
-				207D5F8E288EB6F900D31B67 /* Assets.xcassets */,
-				207D5F90288EB6F900D31B67 /* LaunchScreen.storyboard */,
+				207D5FA0288EBE0C00D31B67 /* Models */,
+				204D939C28919E4A0063588E /* Services */,
+				207D5F9D288EBA1500D31B67 /* ViewControllers */,
+				204D939A28919DCB0063588E /* Storyboards */,
+				204D939B28919DF60063588E /* SupportingFiles */,
 				207D5F93288EB6F900D31B67 /* Info.plist */,
 				207D5F8B288EB6F700D31B67 /* WeatherApp.xcdatamodeld */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
 		};
-		207D5F9D288EBA1500D31B67 /* Controllers */ = {
+		207D5F9D288EBA1500D31B67 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				207D5F99288EB9F100D31B67 /* CityController.swift */,
 				207D5F9B288EBA0900D31B67 /* WeatherController.swift */,
+				204D939D28919E700063588E /* Cells */,
 			);
-			path = Controllers;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		207D5FA0288EBE0C00D31B67 /* Model */ = {
+		207D5FA0288EBE0C00D31B67 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				207D5F9E288EBA8B00D31B67 /* Weather.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
