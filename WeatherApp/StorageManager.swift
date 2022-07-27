@@ -11,9 +11,9 @@ class StorageManager {
     
     static let shared = StorageManager()
     
-    // MARK: - Core Data stack 
+    // MARK: - Core Data stack
     private let persistentContainer: NSPersistentContainer = {
-   
+        
         let container = NSPersistentContainer(name: "WeatherApp")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -29,6 +29,44 @@ class StorageManager {
         viewContext = persistentContainer.viewContext
     }
     
-    //MARK: - Public Methods
+    // MARK: - Public Methods
     
+    func fetchData(completion: (Result<[City], Error>)-> Void) {
+        let fetchRequest = City.fetchRequest()
+        
+        do {
+            let city = try viewContext.fetch(fetchRequest)
+            completion(.success(city))
+        } catch let error {
+            completion(.failure(error))
+        }
+    }
+    
+    // Save data
+    func save(_ cityName: String, completion: (City) -> Void) {
+        let city = City(context: viewContext)
+        city.title = cityName
+        completion(city)
+        saveContext()
+    }
+    
+    // Delete data
+    func delete(_ city: City) {
+        viewContext.delete(city)
+        saveContext()
+    }
+    
+    
+    // MARK: - Core Data Saving support
+   
+    func saveContext() {
+        if viewContext.hasChanges {
+            do {
+                try viewContext.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
 }

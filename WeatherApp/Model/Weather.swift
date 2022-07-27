@@ -38,7 +38,7 @@ extension Weather{
     var degreesCelcium: String {
         
         let wholeTemperature = Int(breakdown.temperature)
-        let degreesCelcium = String(wholeTemperature) + "˚"
+        let degreesCelcium = String(wholeTemperature) + "˚C"
         return degreesCelcium
         
     }

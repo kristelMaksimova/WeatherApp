@@ -52,21 +52,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="35С" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTo-3U-aec">
-                                                    <rect key="frame" x="246" y="21" width="48" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="〉" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTo-3U-aec">
+                                                    <rect key="frame" x="287" y="21" width="12" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <color key="textColor" systemColor="linkColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="bTo-3U-aec" secondAttribute="trailing" constant="10" id="07D-OX-qtM"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="bTo-3U-aec" secondAttribute="bottom" constant="10" id="4UR-6i-A76"/>
                                                 <constraint firstItem="Wc9-l3-wYo" firstAttribute="leading" secondItem="DEx-yu-DIs" secondAttribute="leadingMargin" constant="10" id="KBM-34-fA0"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="bTo-3U-aec" secondAttribute="trailing" constant="5" id="Vdx-qA-09t"/>
+                                                <constraint firstItem="bTo-3U-aec" firstAttribute="leading" secondItem="Wc9-l3-wYo" secondAttribute="trailing" constant="74" id="WDh-Ft-BK7"/>
                                                 <constraint firstItem="bTo-3U-aec" firstAttribute="top" secondItem="DEx-yu-DIs" secondAttribute="topMargin" constant="10" id="YQ4-Za-Pkz"/>
                                                 <constraint firstItem="Wc9-l3-wYo" firstAttribute="top" secondItem="DEx-yu-DIs" secondAttribute="topMargin" constant="12" id="YoR-sR-Rj9"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Wc9-l3-wYo" secondAttribute="bottom" constant="12" id="aOU-Au-JOx"/>
-                                                <constraint firstItem="bTo-3U-aec" firstAttribute="leading" secondItem="Wc9-l3-wYo" secondAttribute="trailing" constant="33" id="j8S-Em-MFF"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -115,7 +115,7 @@
                     <connections>
                         <outlet property="cityTextField" destination="iR4-sS-8wy" id="XBA-r1-414"/>
                         <outlet property="tableView" destination="5la-68-BdS" id="L7t-ss-Geb"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="Go" id="yRi-wY-J5o"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="Go" id="qBC-2A-s0M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ohk-7B-zJH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
