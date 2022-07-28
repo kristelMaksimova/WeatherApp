@@ -17,7 +17,7 @@ class CityController: UIViewController {
     
     
     // MARK: - Public properties
-    var weatherReport: Weather!
+    var weatherReport: CurrentWeather!
     
     
     //MARK: - Private Properties
@@ -36,7 +36,7 @@ class CityController: UIViewController {
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if  let weatherVC = segue.destination as? WeatherController,
-            let weatherReport = sender as? Weather {
+            let weatherReport = sender as? CurrentWeather {
             weatherVC.weatherReport = weatherReport
         }
     }
@@ -47,8 +47,8 @@ class CityController: UIViewController {
         if cityTextField.text! == "" {
             print("Нужен алерт")
         } else {
+            networking(text: cityTextField.text!, host: WeatherAPI.hostOne)
             self.save(cityName: cityTextField.text!)
-            networking(text: cityTextField.text!)
         }
     }
     
@@ -110,7 +110,7 @@ extension CityController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = cityList[indexPath.row]
-        networking(text: city.title!)
+        networking(text: city.title!, host: WeatherAPI.hostOne)
     }
 }
 
@@ -118,10 +118,8 @@ extension CityController: UITableViewDelegate {
 // MARK: - Networking
 extension CityController {
     
-    //API KEY: http://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=b6d1e53fa1e2de6d512ae99663b7137e&units=metric
-    
-    func networking(text: String) {
-        var components = URLComponents(string: "http://api.openweathermap.org/data/2.5/weather")
+    func networking(text: String, host: String) {
+        var components = URLComponents(string: host)
         let cityQuery = URLQueryItem(name: "q", value: text)
         let appIdQuery = URLQueryItem(name: "appid", value: "b6d1e53fa1e2de6d512ae99663b7137e")
         let unitsQuery = URLQueryItem(name: "units", value: "metric")
@@ -138,7 +136,7 @@ extension CityController {
                 do {
                     let json = try JSONSerialization.jsonObject(with: data, options: [])
                     print(json)
-                    let weatherReport = try JSONDecoder().decode(Weather.self, from: data)
+                    let weatherReport = try JSONDecoder().decode(CurrentWeather.self, from: data)
                     print(weatherReport)
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "Go", sender: weatherReport)

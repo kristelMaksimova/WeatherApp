@@ -8,7 +8,5 @@
 import UIKit
 
 class CityCell: UITableViewCell {
-
     @IBOutlet var cityName: UILabel!
-    @IBOutlet var temperature: UILabel!
 }

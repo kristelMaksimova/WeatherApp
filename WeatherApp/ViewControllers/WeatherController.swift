@@ -11,11 +11,12 @@ class WeatherController: UIViewController {
 
     //MARK: - IBOutlets
     @IBOutlet var cityLabel: UILabel!
-    @IBOutlet var weatherImage: UIImageView!
     @IBOutlet var temperatureLabel: UILabel!
-    @IBOutlet var minAndMaxTemperatureLabel: UILabel!
+    @IBOutlet var conditionLabel: UILabel!
+    @IBOutlet var minMaxTemperature: UILabel!
     
-    var weatherReport: Weather!
+    
+    var weatherReport: CurrentWeather!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,13 +25,30 @@ class WeatherController: UIViewController {
     
     }
     
-    private func interfaceElements(networkData: Weather!) {
-       
+    private func interfaceElements(networkData: CurrentWeather!) {
+        
         guard let weatherReport = networkData else {return}
         
         cityLabel.text = weatherReport.city
-        temperatureLabel.text = weatherReport.degreesCelcium
-        minAndMaxTemperatureLabel.text = weatherReport.conditions.first?.description
-        //  weatherImage.image = weatherReport.conditionImage
+        temperatureLabel.text = "\(Int(weatherReport.breakdown.temperature))˚C"
+        conditionLabel.text = weatherReport.conditions.first?.description
+        minMaxTemperature.text = "Max.:\(Int(weatherReport.breakdown.maxTemperature))˚C,  Min.: \(Int(weatherReport.breakdown.minTemperature))˚C"
+    }
+}
+
+//MARK: - Table view data source, delegate
+extension WeatherController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ForecastCell", for: indexPath) as! ForecastWeatherCell
+       
+       // let city = [indexPath.row]
+        //cell.cityName.text = city.title!
+        
+        return cell
     }
 }
