@@ -20,9 +20,11 @@ class WeatherController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+      
     
         interfaceElements(networkData: weatherReport)
-    
+        setupNavigationBar()
     }
     
     private func interfaceElements(networkData: CurrentWeather!) {
@@ -34,6 +36,11 @@ class WeatherController: UIViewController {
         conditionLabel.text = weatherReport.conditions.first?.description
         minMaxTemperature.text = "Max.:\(Int(weatherReport.breakdown.maxTemperature))˚C,  Min.: \(Int(weatherReport.breakdown.minTemperature))˚C"
     }
+    
+    func setupNavigationBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    }
+    
 }
 
 //MARK: - Table view data source, delegate
@@ -45,9 +52,24 @@ extension WeatherController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ForecastCell", for: indexPath) as! ForecastWeatherCell
-       
+        
        // let city = [indexPath.row]
         //cell.cityName.text = city.title!
+        
+        return cell
+    }
+}
+
+// MARK: UICollectionViewDataSource
+   
+extension WeatherController: UICollectionViewDataSource, UICollectionViewDelegate {
+   
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 11
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "hourlyCell", for: indexPath) as! HourlyForecastCell
         
         return cell
     }

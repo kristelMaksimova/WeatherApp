@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		204A595028942DA100A0FE13 /* HourlyForecastCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 204A594F28942DA100A0FE13 /* HourlyForecastCell.swift */; };
 		207D5F83288EB6F700D31B67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207D5F82288EB6F700D31B67 /* AppDelegate.swift */; };
 		207D5F85288EB6F700D31B67 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207D5F84288EB6F700D31B67 /* SceneDelegate.swift */; };
 		207D5F8A288EB6F700D31B67 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 207D5F88288EB6F700D31B67 /* Main.storyboard */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		204A594F28942DA100A0FE13 /* HourlyForecastCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyForecastCell.swift; sourceTree = "<group>"; };
 		207D5F7F288EB6F700D31B67 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		207D5F82288EB6F700D31B67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		207D5F84288EB6F700D31B67 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				207D5F99288EB9F100D31B67 /* CityController.swift */,
 				207D5F9B288EBA0900D31B67 /* WeatherController.swift */,
+				204A594F28942DA100A0FE13 /* HourlyForecastCell.swift */,
 				204D939D28919E700063588E /* Cells */,
 			);
 			path = ViewControllers;
@@ -222,6 +225,7 @@
 				20A245E22892D99800EA7201 /* ForecastWeather.swift in Sources */,
 				207D5F9F288EBA8B00D31B67 /* CurrentWeather.swift in Sources */,
 				20A245E62892FFB300EA7201 /* ForecastArray.swift in Sources */,
+				204A595028942DA100A0FE13 /* HourlyForecastCell.swift in Sources */,
 				20E31C54288EDDD900B69EF3 /* CityCell.swift in Sources */,
 				207D5F85288EB6F700D31B67 /* SceneDelegate.swift in Sources */,
 				20E31C5628900A1800B69EF3 /* StorageManager.swift in Sources */,

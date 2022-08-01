@@ -32,6 +32,11 @@ class CityController: UIViewController {
         tableView.reloadData()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupNavigationBar()
+    
+    }
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -61,6 +66,10 @@ class CityController: UIViewController {
                 at: [IndexPath(row: self.cityList.count - 1, section: 0)] ,
                 with: .automatic)
         }
+    }
+    
+    func setupNavigationBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
     
     private func fetchData() {
