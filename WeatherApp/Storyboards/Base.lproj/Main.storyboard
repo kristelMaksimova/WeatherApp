@@ -284,6 +284,11 @@
                                                     </constraints>
                                                 </collectionViewCellContentView>
                                                 <size key="customSize" width="72" height="127"/>
+                                                <connections>
+                                                    <outlet property="hour" destination="yW0-w1-Ecc" id="KT4-3M-5N8"/>
+                                                    <outlet property="img" destination="fEW-76-fce" id="iWT-ti-qTq"/>
+                                                    <outlet property="temp" destination="G9v-ad-3bl" id="Rw6-rl-3R0"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                         <connections>
@@ -341,7 +346,6 @@
                     <size key="freeformSize" width="414" height="1100"/>
                     <connections>
                         <outlet property="cityLabel" destination="JHF-ot-hpr" id="VZt-fe-ksy"/>
-                        <outlet property="collectionView" destination="wdN-Oe-NLN" id="Ni3-0z-TVw"/>
                         <outlet property="conditionLabel" destination="Hax-bX-aW3" id="Wyi-6a-WNp"/>
                         <outlet property="minMaxTemperature" destination="FcH-Lc-bba" id="f7W-aD-kSw"/>
                         <outlet property="temperatureLabel" destination="4xz-EZ-mXh" id="DAg-hW-qEd"/>

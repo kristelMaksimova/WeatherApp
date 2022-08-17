@@ -7,4 +7,10 @@
 
 import Foundation
 
+class DataManager {
+   
+    static let shared = DataManager()
+    
+    let listArray: [List] = []
+}
 

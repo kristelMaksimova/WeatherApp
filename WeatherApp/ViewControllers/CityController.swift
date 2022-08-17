@@ -18,10 +18,11 @@ class CityController: UIViewController {
     
     // MARK: - Public properties
     var weatherReport: CurrentWeather!
-    
-    
+
     //MARK: - Private Properties
     private var cityList: [City] = []
+    var forecastWeather = [List] ()
+    //private var forecastWeather = DataManager.shared.listArray
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
@@ -35,7 +36,6 @@ class CityController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-    
     }
     
     // MARK: - Navigation
@@ -53,6 +53,7 @@ class CityController: UIViewController {
             print("Нужен алерт")
         } else {
             networking(text: cityTextField.text!, host: WeatherAPI.hostOne)
+            networkingCollectionView(text: cityTextField.text!)
             self.save(cityName: cityTextField.text!)
         }
     }
@@ -119,6 +120,7 @@ extension CityController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = cityList[indexPath.row]
+        networkingCollectionView(text: city.title!)
         networking(text: city.title!, host: WeatherAPI.hostOne)
     }
 }
@@ -156,6 +158,33 @@ extension CityController {
             }
         }
         dataTask.resume()
+    }
+    
+    func networkingCollectionView(text: String) {
+        
+        let jsonURLstring = "https://api.openweathermap.org/data/2.5/forecast?q=\(text)&appid=b6d1e53fa1e2de6d512ae99663b7137e&units=metric"
+        
+        guard let url = URL(string : jsonURLstring) else {return }
+        URLSession.shared.dataTask(with: url) { data , response, errur in
+            guard let data = data else {return }
+            
+            let dataAsString = String(data: data , encoding: .utf8)
+            
+            do {
+                let watherData = try JSONDecoder().decode( Welcome.self ,from: data )
+                
+                self.forecastWeather.removeAll()
+                for i in 0...20 {
+                    self.forecastWeather.append(watherData.list[i])
+                }
+                
+                print (self.forecastWeather)
+                
+            }catch let jsonErr{
+                print("Error :" ,jsonErr )
+            }
+            
+        }.resume()
     }
 }
 

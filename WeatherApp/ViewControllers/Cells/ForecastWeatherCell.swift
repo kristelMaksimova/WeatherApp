@@ -24,9 +24,9 @@ class ForecastWeatherCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func configure(with products: ForecastWeather) {
-      //  forecastDay.text = products.list.
+   // func configure(with products: Welcome) {
+       // forecastDay.text = products.
        // forecastTemp.text = products.name
         //forecastImage.text = "$ \(products.price ?? "")"
-    }
+   // }
 }

@@ -14,11 +14,11 @@ class WeatherController: UIViewController {
     @IBOutlet var temperatureLabel: UILabel!
     @IBOutlet var conditionLabel: UILabel!
     @IBOutlet var minMaxTemperature: UILabel!
-    @IBOutlet var collectionView: UICollectionView!
     
     
     var weatherReport: CurrentWeather!
-    
+    private var forecastWeather = DataManager.shared.listArray
+
     override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -64,12 +64,43 @@ extension WeatherController: UITableViewDataSource, UITableViewDelegate {
 extension WeatherController: UICollectionViewDataSource, UICollectionViewDelegate {
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 11
+        return forecastWeather.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "hourlyCell", for: indexPath) as! HourlyForecastCell
         
+        cell.settempCell(
+            temp : "\(forecastWeather[indexPath.row].main.temp)" ,
+            hour : fromDtToformatedDate(dt: Double(forecastWeather[indexPath.row].dt) , foramt : "h:mm a")
+            //, img: getWeatherStatusImg( status: forecastWeather[indexPath.row].weather.image[0].main.rawValue )
+        )
+        
         return cell
     }
+    
+    func fromDtToformatedDate(dt: Double, foramt : String ) -> String {
+    
+          let date = Date(timeIntervalSince1970: dt)
+        let dateFormatter = DateFormatter()
+          dateFormatter.dateFormat = foramt
+          return dateFormatter.string(from: date)
+      }
+    
+    func getWeatherStatusImg(status : String )->UIImage {
+        switch status {
+        case "Clouds":
+            return UIImage(systemName: "cloud.fill")!
+        case "Rain":
+            return  UIImage(systemName: "cloud.rain.fill")!
+        case "Clear":
+            return UIImage(systemName: "sun.max")!
+        case "Snow":
+            return UIImage(systemName: "cloud.snow.fill")!
+        default:
+            return UIImage(systemName: "cloud.snow.fill")!
+        }
+     
+     }
+    
 }
