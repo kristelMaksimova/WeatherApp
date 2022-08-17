@@ -14,14 +14,13 @@ class WeatherController: UIViewController {
     @IBOutlet var temperatureLabel: UILabel!
     @IBOutlet var conditionLabel: UILabel!
     @IBOutlet var minMaxTemperature: UILabel!
+    @IBOutlet var collectionView: UICollectionView!
     
     
     var weatherReport: CurrentWeather!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-      
     
         interfaceElements(networkData: weatherReport)
         setupNavigationBar()
