@@ -21,8 +21,8 @@ class CityController: UIViewController {
 
     //MARK: - Private Properties
     private var cityList: [City] = []
-    var forecastWeather = [List] ()
-    //private var forecastWeather = DataManager.shared.listArray
+    //var forecastWeather = [List] ()
+    private var forecastWeather = DataManager.shared.listArray
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
@@ -52,8 +52,8 @@ class CityController: UIViewController {
         if cityTextField.text! == "" {
             print("Нужен алерт")
         } else {
-            networking(text: cityTextField.text!, host: WeatherAPI.hostOne)
-            networkingCollectionView(text: cityTextField.text!)
+            networkingMain(text: cityTextField.text!, host: WeatherAPI.hostOne)
+            networkingCollectionView(text: cityTextField.text!, host: WeatherAPI.hostTwo)
             self.save(cityName: cityTextField.text!)
         }
     }
@@ -120,8 +120,9 @@ extension CityController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = cityList[indexPath.row]
-        networkingCollectionView(text: city.title!)
-        networking(text: city.title!, host: WeatherAPI.hostOne)
+ 
+        networkingCollectionView(text: city.title!, host: WeatherAPI.hostTwo)
+        networkingMain(text: city.title!, host: WeatherAPI.hostOne)
     }
 }
 
@@ -129,7 +130,8 @@ extension CityController: UITableViewDelegate {
 // MARK: - Networking
 extension CityController {
     
-    func networking(text: String, host: String) {
+    func networkingMain(text: String, host: String) {
+ 
         var components = URLComponents(string: host)
         let cityQuery = URLQueryItem(name: "q", value: text)
         let appIdQuery = URLQueryItem(name: "appid", value: "b6d1e53fa1e2de6d512ae99663b7137e")
@@ -160,15 +162,19 @@ extension CityController {
         dataTask.resume()
     }
     
-    func networkingCollectionView(text: String) {
+    func networkingCollectionView(text: String, host: String) {
         
-        let jsonURLstring = "https://api.openweathermap.org/data/2.5/forecast?q=\(text)&appid=b6d1e53fa1e2de6d512ae99663b7137e&units=metric"
+        var components = URLComponents(string: host)
+        let cityQuery = URLQueryItem(name: "q", value: text)
+        let appIdQuery = URLQueryItem(name: "appid", value: "b6d1e53fa1e2de6d512ae99663b7137e")
+        let unitsQuery = URLQueryItem(name: "units", value: "metric")
         
-        guard let url = URL(string : jsonURLstring) else {return }
+        components?.queryItems = [cityQuery, appIdQuery, unitsQuery]
+        
+        guard let url = components?.url else {return}
+        
         URLSession.shared.dataTask(with: url) { data , response, errur in
             guard let data = data else {return }
-            
-            let dataAsString = String(data: data , encoding: .utf8)
             
             do {
                 let watherData = try JSONDecoder().decode( Welcome.self ,from: data )

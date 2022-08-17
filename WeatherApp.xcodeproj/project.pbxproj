@@ -87,6 +87,7 @@
 		204D939D28919E700063588E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				204A594F28942DA100A0FE13 /* HourlyForecastCell.swift */,
 				20A245E32892F48600EA7201 /* ForecastWeatherCell.swift */,
 				20E31C53288EDDD900B69EF3 /* CityCell.swift */,
 			);
@@ -128,7 +129,6 @@
 			children = (
 				207D5F99288EB9F100D31B67 /* CityController.swift */,
 				207D5F9B288EBA0900D31B67 /* WeatherController.swift */,
-				204A594F28942DA100A0FE13 /* HourlyForecastCell.swift */,
 				204D939D28919E700063588E /* Cells */,
 			);
 			path = ViewControllers;
