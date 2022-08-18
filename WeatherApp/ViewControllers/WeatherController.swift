@@ -10,43 +10,40 @@ import UIKit
 class WeatherController: UIViewController {
 
     //MARK: - IBOutlets
-    @IBOutlet var cityLabel: UILabel!
-    @IBOutlet var temperatureLabel: UILabel!
-    @IBOutlet var conditionLabel: UILabel!
-    @IBOutlet var minMaxTemperature: UILabel!
+    @IBOutlet var currentCity: UILabel!
+    @IBOutlet var currentTemp: UILabel!
+    @IBOutlet var currentCondition: UILabel!
+    @IBOutlet var currentMinMax: UILabel!
+    
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var tableView: UITableView!
     
     
     var weatherReport: CurrentWeather!
-    var hourlyWeather = [List] ()
     var delegate: CityController!
-    var delegateTwo: CityController!
+    
+    var hourlyWeather = [List] ()
     var dailyWeather = [List] ()
-
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.layer.cornerRadius = 12
-        tableView.layer.cornerRadius = 12
         interfaceElements(networkData: weatherReport)
-        setupNavigationBar()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
     
-    // MARK: - Private methods
+    // MARK: - Private method
 
     private func interfaceElements(networkData: CurrentWeather!) {
         
         guard let weatherReport = networkData else {return}
         
-        cityLabel.text = weatherReport.city
-        temperatureLabel.text = "\(Int(weatherReport.breakdown.temperature))˚C"
-        conditionLabel.text = weatherReport.conditions.first?.description
-        minMaxTemperature.text = "Max.:\(Int(weatherReport.breakdown.maxTemperature))˚C,  Min.: \(Int(weatherReport.breakdown.minTemperature))˚C"
-    }
-    
-    private func setupNavigationBar() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        currentCity.text = weatherReport.city
+        currentTemp.text = "\(Int(weatherReport.breakdown.temperature))˚C"
+        currentCondition.text = weatherReport.conditions.first?.description
+        currentMinMax.text = "Max.:\(Int(weatherReport.breakdown.maxTemperature))˚C,  Min.: \(Int(weatherReport.breakdown.minTemperature))˚C"
+       
+        collectionView.layer.cornerRadius = 12
+        tableView.layer.cornerRadius = 12
     }
 }
 

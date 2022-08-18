@@ -350,12 +350,12 @@
                     <navigationItem key="navigationItem" id="k9c-xB-tmB"/>
                     <size key="freeformSize" width="414" height="1100"/>
                     <connections>
-                        <outlet property="cityLabel" destination="JHF-ot-hpr" id="VZt-fe-ksy"/>
                         <outlet property="collectionView" destination="wdN-Oe-NLN" id="LS2-lQ-i8c"/>
-                        <outlet property="conditionLabel" destination="Hax-bX-aW3" id="Wyi-6a-WNp"/>
-                        <outlet property="minMaxTemperature" destination="FcH-Lc-bba" id="f7W-aD-kSw"/>
+                        <outlet property="currentCity" destination="JHF-ot-hpr" id="VZt-fe-ksy"/>
+                        <outlet property="currentCondition" destination="Hax-bX-aW3" id="Wyi-6a-WNp"/>
+                        <outlet property="currentMinMax" destination="FcH-Lc-bba" id="f7W-aD-kSw"/>
+                        <outlet property="currentTemp" destination="4xz-EZ-mXh" id="DAg-hW-qEd"/>
                         <outlet property="tableView" destination="Ss3-hE-uR4" id="YOY-Xy-qrH"/>
-                        <outlet property="temperatureLabel" destination="4xz-EZ-mXh" id="DAg-hW-qEd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H31-wb-BK1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

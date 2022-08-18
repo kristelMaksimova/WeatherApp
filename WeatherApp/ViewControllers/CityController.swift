@@ -13,7 +13,6 @@ class CityController: UIViewController {
     //MARK: - IBOutlets
     @IBOutlet var tableView: UITableView!
     @IBOutlet var cityTextField: UITextField!
-    @IBOutlet var cityTemperature: UILabel!
     
     
     // MARK: - Public properties
@@ -29,15 +28,15 @@ class CityController: UIViewController {
     
     
     //MARK: - Override
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
         tableView.reloadData()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupNavigationBar()
     }
     
     
@@ -46,13 +45,10 @@ class CityController: UIViewController {
         if  let weatherVC = segue.destination as? WeatherController,
             let weatherReport = sender as? CurrentWeather {
             weatherVC.weatherReport = weatherReport
+            weatherVC.delegate = self
+            weatherVC.hourlyWeather = self.hourlyWeather
+            weatherVC.dailyWeather = self.dailyWeather
         }
-        guard let weatherVC = segue.destination as? WeatherController else { return }
-        weatherVC.delegate = self
-        weatherVC.hourlyWeather = self.hourlyWeather
-        guard let weatherVCTwo = segue.destination as? WeatherController else { return }
-        weatherVCTwo.delegateTwo = self
-        weatherVCTwo.dailyWeather = self.dailyWeather
     }
     
     
@@ -62,8 +58,7 @@ class CityController: UIViewController {
             print("Нужен алерт")
         } else {
             networkingMain(text: cityTextField.text!, host: WeatherAPI.hostOne)
-            networkingCollectionView(text: cityTextField.text!, host: WeatherAPI.hostTwo)
-            networkingTableView(text: cityTextField.text!, host: WeatherAPI.hostTwo)
+            networkingTableAndColletionViews(text: cityTextField.text!, host: WeatherAPI.hostTwo)
             self.save(cityName: cityTextField.text!)
         }
     }
@@ -79,10 +74,6 @@ class CityController: UIViewController {
         }
     }
     
-    func setupNavigationBar() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-    }
-    
     private func fetchData() {
         StorageManager.shared.fetchData { result in
             switch result {
@@ -91,9 +82,29 @@ class CityController: UIViewController {
             case .failure(let error):
                 print(error.localizedDescription)
             }
-            
         }
+    }
+    
+    private func dailyDataFilter(watherData: Welcome) {
         
+        self.dailyWeather.removeAll()
+        
+        for i in 0...40 {
+            if i == 5 || i == 13 || i == 21 || i == 29 || i == 37 {
+                self.dailyWeather.append(watherData.list[i])
+            }
+        }
+        print("Добавилось из сети: \(self.dailyWeather.count)")
+    }
+    
+    private func hourlyDataFilter(watherData: Welcome) {
+        
+        self.hourlyWeather.removeAll()
+        
+        for i in 0...7 {
+            self.hourlyWeather.append(watherData.list[i])
+        }
+        print("Добавилось из сети: \(self.hourlyWeather.count)")
     }
 }
 
@@ -131,9 +142,8 @@ extension CityController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = cityList[indexPath.row]
 
-        networkingCollectionView(text: city.title!, host: WeatherAPI.hostTwo)
+        networkingTableAndColletionViews(text: city.title!, host: WeatherAPI.hostTwo)
         networkingMain(text: city.title!, host: WeatherAPI.hostOne)
-        networkingTableView(text: city.title!, host: WeatherAPI.hostTwo)
     }
 }
 
@@ -173,7 +183,7 @@ extension CityController {
         dataTask.resume()
     }
     
-    func networkingCollectionView(text: String, host: String) {
+    func networkingTableAndColletionViews(text: String, host: String) {
         
         var components = URLComponents(string: host)
         let cityQuery = URLQueryItem(name: "q", value: text)
@@ -191,12 +201,8 @@ extension CityController {
                 
                 let watherData = try JSONDecoder().decode( Welcome.self ,from: data )
                 
-                self.hourlyWeather.removeAll()
-                for i in 0...7 {
-                    self.hourlyWeather.append(watherData.list[i])
-                }
-            
-                print("Добавилось из сети: \(self.hourlyWeather.count)")
+                self.dailyDataFilter(watherData: watherData)
+                self.hourlyDataFilter(watherData: watherData)
                 
             }catch let jsonErr {
                 print("Error :" ,jsonErr )
@@ -204,43 +210,5 @@ extension CityController {
             
         }.resume()
     }
-    
-    func networkingTableView(text: String, host: String) {
-        
-        var components = URLComponents(string: host)
-        let cityQuery = URLQueryItem(name: "q", value: text)
-        let appIdQuery = URLQueryItem(name: "appid", value: "b6d1e53fa1e2de6d512ae99663b7137e")
-        let unitsQuery = URLQueryItem(name: "units", value: "metric")
-        
-        components?.queryItems = [cityQuery, appIdQuery, unitsQuery]
-        
-        guard let url = components?.url else {return}
-        
-        URLSession.shared.dataTask(with: url) { data , response, errur in
-            guard let data = data else {return }
-            
-            do {
-                
-                let watherData = try JSONDecoder().decode( Welcome.self ,from: data )
-                
-                self.dailyWeather.removeAll()
-               
-                for i in 0...40 {
-                    if i == 5 || i == 13 || i == 21 || i == 29 || i == 37 {
-                    self.dailyWeather.append(watherData.list[i])
-                    }
-                }
-            
-                print("Добавилось из сети: \(self.dailyWeather.count)")
-                
-            }catch let jsonErr {
-                print("Error :" ,jsonErr )
-            }
-            
-        }.resume()
-    }
-    
-    
-     
 }
 
