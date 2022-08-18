@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="-1426" y="70"/>
         </scene>
-        <!--Города-->
+        <!--Location-->
         <scene sceneID="AUx-zz-ZIT">
             <objects>
                 <viewController id="HJS-Ne-C7F" customClass="CityController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -113,7 +113,7 @@
                             <constraint firstItem="5la-68-BdS" firstAttribute="leading" secondItem="zOd-R4-Gl9" secondAttribute="leading" id="umu-BH-qsm"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Города" id="llV-6k-Xbo"/>
+                    <navigationItem key="navigationItem" title="Location" id="llV-6k-Xbo"/>
                     <connections>
                         <outlet property="cityTextField" destination="iR4-sS-8wy" id="XBA-r1-414"/>
                         <outlet property="tableView" destination="5la-68-BdS" id="L7t-ss-Geb"/>
@@ -491,7 +491,7 @@
                         <outlet property="collectionView" destination="wdN-Oe-NLN" id="LS2-lQ-i8c"/>
                         <outlet property="currentCity" destination="JHF-ot-hpr" id="VZt-fe-ksy"/>
                         <outlet property="currentCondition" destination="Hax-bX-aW3" id="Wyi-6a-WNp"/>
-                        <outlet property="currentFeelsLike" destination="thF-xg-ioW" id="pPH-gO-Bd0"/>
+                        <outlet property="currentFeelsLike" destination="ZIq-fy-oV7" id="NyP-H8-jwZ"/>
                         <outlet property="currentHumidity" destination="f7b-b9-RS2" id="Ce9-8j-Uk0"/>
                         <outlet property="currentImage" destination="gxD-OH-cYk" id="nig-QE-RpK"/>
                         <outlet property="currentMinMax" destination="FcH-Lc-bba" id="f7W-aD-kSw"/>

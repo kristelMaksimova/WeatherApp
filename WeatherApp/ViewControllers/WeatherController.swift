@@ -53,7 +53,7 @@ class WeatherController: UIViewController {
         currentTemp.text = "\(Int(weatherReport.breakdown.temperature))˚C"
         currentCondition.text = weatherReport.conditions.first?.description
         currentMinMax.text = "Max.:\(Int(weatherReport.breakdown.maxTemperature))˚C,  Min.: \(Int(weatherReport.breakdown.minTemperature))˚C"
-        currentFeelsLike.text = "\(Int(weatherReport.breakdown.feelsLikeTemperature))"
+        currentFeelsLike.text = "Feels like \(Int(weatherReport.breakdown.feelsLikeTemperature))˚C"
         currentSunrise.text = self.fromDtToformatedDate(dt:Double(weatherReport.sys.sunrise), format : "HH:mm")
         currentSunset.text = self.fromDtToformatedDate(dt:Double(weatherReport.sys.sunset), format : "HH:mm")
         currentPressure.text = "\(weatherReport.breakdown.pressure) hPa"
