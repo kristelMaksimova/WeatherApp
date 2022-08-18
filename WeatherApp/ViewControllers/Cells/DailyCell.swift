@@ -7,17 +7,12 @@
 
 import UIKit
 
-class ForecastWeatherCell: UITableViewCell {
+class DailyCell: UITableViewCell {
 
-    @IBOutlet var forecastDay: UILabel!
-    @IBOutlet var forecastImage: UIImageView!
-    @IBOutlet var forecastTemp: UILabel!
+    @IBOutlet var dailyData: UILabel!
+    @IBOutlet var dailyImage: UIImageView!
+    @IBOutlet var dailyTemp: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

@@ -185,21 +185,21 @@
                                             <constraint firstAttribute="height" constant="159" id="tAC-Gx-bgW"/>
                                         </constraints>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ForecastCell" id="o9F-10-vUU" customClass="ForecastWeatherCell" customModule="WeatherApp" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="44.5" width="374" height="46"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ForecastCell" id="o9F-10-vUU" customClass="DailyCell" customModule="WeatherApp" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="44.5" width="374" height="46.5"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o9F-10-vUU" id="gj2-eL-YLw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="46"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="46.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xzd-aD-SIT">
-                                                            <rect key="frame" x="20" y="10" width="30" height="26"/>
+                                                            <rect key="frame" x="20" y="10" width="30" height="26.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26 С" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5XF-iE-vaR">
-                                                            <rect key="frame" x="309" y="10" width="45" height="26"/>
+                                                            <rect key="frame" x="309" y="10" width="45" height="26.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -235,7 +235,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="hourlyCell" id="xnC-6l-VkB" customClass="HourlyForecastCell" customModule="WeatherApp" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="hourlyCell" id="xnC-6l-VkB" customClass="HourlyCell" customModule="WeatherApp" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.5" width="72" height="127"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="oDR-ez-Clf">
@@ -277,9 +277,9 @@
                                                 </collectionViewCellContentView>
                                                 <size key="customSize" width="72" height="127"/>
                                                 <connections>
-                                                    <outlet property="hour" destination="yW0-w1-Ecc" id="KT4-3M-5N8"/>
-                                                    <outlet property="img" destination="fEW-76-fce" id="iWT-ti-qTq"/>
-                                                    <outlet property="temp" destination="G9v-ad-3bl" id="Rw6-rl-3R0"/>
+                                                    <outlet property="hourlyImage" destination="fEW-76-fce" id="iWT-ti-qTq"/>
+                                                    <outlet property="hourlyTemp" destination="G9v-ad-3bl" id="Rw6-rl-3R0"/>
+                                                    <outlet property="hourlyTime" destination="yW0-w1-Ecc" id="KT4-3M-5N8"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -338,8 +338,10 @@
                     <size key="freeformSize" width="414" height="1100"/>
                     <connections>
                         <outlet property="cityLabel" destination="JHF-ot-hpr" id="VZt-fe-ksy"/>
+                        <outlet property="collectionView" destination="wdN-Oe-NLN" id="LS2-lQ-i8c"/>
                         <outlet property="conditionLabel" destination="Hax-bX-aW3" id="Wyi-6a-WNp"/>
                         <outlet property="minMaxTemperature" destination="FcH-Lc-bba" id="f7W-aD-kSw"/>
+                        <outlet property="tableView" destination="Ss3-hE-uR4" id="YOY-Xy-qrH"/>
                         <outlet property="temperatureLabel" destination="4xz-EZ-mXh" id="DAg-hW-qEd"/>
                     </connections>
                 </viewController>

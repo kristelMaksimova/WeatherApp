@@ -14,21 +14,24 @@ class WeatherController: UIViewController {
     @IBOutlet var temperatureLabel: UILabel!
     @IBOutlet var conditionLabel: UILabel!
     @IBOutlet var minMaxTemperature: UILabel!
+    @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var tableView: UITableView!
     
     
     var weatherReport: CurrentWeather!
     var hourlyWeather = [List] ()
-
     var delegate: CityController!
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        collectionView.layer.cornerRadius = 12
+        tableView.layer.cornerRadius = 12
         interfaceElements(networkData: weatherReport)
         setupNavigationBar()
     }
     
+    // MARK: - Private methods
 
     private func interfaceElements(networkData: CurrentWeather!) {
         
@@ -57,6 +60,7 @@ class WeatherController: UIViewController {
     }
 }
 
+
 //MARK: - Table view data source, delegate
 extension WeatherController: UITableViewDataSource, UITableViewDelegate {
     
@@ -65,7 +69,7 @@ extension WeatherController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ForecastCell", for: indexPath) as! ForecastWeatherCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ForecastCell", for: indexPath) as! DailyCell
         
        // let city = [indexPath.row]
         //cell.cityName.text = city.title!
@@ -74,6 +78,7 @@ extension WeatherController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+
 // MARK: UICollectionViewDataSource
    
 extension WeatherController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -81,11 +86,10 @@ extension WeatherController: UICollectionViewDataSource, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("В списке для коллекции: \(hourlyWeather.count)")
         return hourlyWeather.count
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "hourlyCell", for: indexPath) as! HourlyForecastCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "hourlyCell", for: indexPath) as! HourlyCell
         
         cell.settempCell(
             temp: "\(Int(hourlyWeather[indexPath.row].main.temp))˚C",

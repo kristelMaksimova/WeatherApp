@@ -39,6 +39,7 @@ class CityController: UIViewController {
         setupNavigationBar()
     }
     
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if  let weatherVC = segue.destination as? WeatherController,
@@ -186,7 +187,7 @@ extension CityController {
                 let watherData = try JSONDecoder().decode( Welcome.self ,from: data )
                 
                 self.hourlyWeather.removeAll()
-                for i in 0...20 {
+                for i in 0...7 {
                     self.hourlyWeather.append(watherData.list[i])
                 }
             
