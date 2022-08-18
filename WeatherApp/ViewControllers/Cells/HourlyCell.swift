@@ -17,7 +17,7 @@ class HourlyCell: UICollectionViewCell {
     func settempCell(temp: String , hour: String, image: String) {
         
         self.hourlyTemp.text = temp
-        self.hourlyTime.text = hour
+        self.hourlyTime.text = convertDateFormater(date: hour)
         
         DispatchQueue.global().async {
             let stringURL = "http://openweathermap.org/img/wn/\(image)@2x.png"
@@ -27,6 +27,18 @@ class HourlyCell: UICollectionViewCell {
                 self.hourlyImage.image = UIImage(data: imageData)
             }
         }
+    }
+    
+    private func convertDateFormater(date: String) -> String {
+        var i = 0
+        var result = ""
+        for s in date {
+            i += 1
+            if i > 10 && i < 16 {
+               result += "\(s)"
+            }
+        }
+        return result + "0"
     }
 }
 

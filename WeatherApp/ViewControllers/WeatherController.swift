@@ -21,6 +21,8 @@ class WeatherController: UIViewController {
     var weatherReport: CurrentWeather!
     var hourlyWeather = [List] ()
     var delegate: CityController!
+    var delegateTwo: CityController!
+    var dailyWeather = [List] ()
 
 
     override func viewDidLoad() {
@@ -46,18 +48,6 @@ class WeatherController: UIViewController {
     private func setupNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
-    
-    private func convertDateFormater(date: String) -> String {
-        var i = 0
-        var result = ""
-        for s in date {
-            i += 1
-            if i > 10 && i < 16 {
-               result += "\(s)"
-            }
-        }
-        return result + "0"
-    }
 }
 
 
@@ -65,15 +55,18 @@ class WeatherController: UIViewController {
 extension WeatherController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        print("В списке для коллекции: \(dailyWeather.count)")
+        return dailyWeather.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ForecastCell", for: indexPath) as! DailyCell
         
-       // let city = [indexPath.row]
-        //cell.cityName.text = city.title!
-        
+        cell.interfaceElements(
+            temp: "\(Int(dailyWeather[indexPath.row].main.temp))˚C",
+            image: dailyWeather[indexPath.row].weather[0].icon,
+            day: dailyWeather[indexPath.row].dtTxt
+        )
         return cell
     }
 }
@@ -93,7 +86,7 @@ extension WeatherController: UICollectionViewDataSource, UICollectionViewDelegat
         
         cell.settempCell(
             temp: "\(Int(hourlyWeather[indexPath.row].main.temp))˚C",
-            hour: convertDateFormater(date: hourlyWeather[indexPath.row].dtTxt),
+            hour: hourlyWeather[indexPath.row].dtTxt,
             image: hourlyWeather[indexPath.row].weather[0].icon
         )
         
