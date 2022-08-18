@@ -21,8 +21,9 @@ class CityController: UIViewController {
 
     //MARK: - Private Properties
     private var cityList: [City] = []
-    //var forecastWeather = [List] ()
-    private var forecastWeather = DataManager.shared.listArray
+    
+    var hourlyWeather = [List] ()
+ 
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
@@ -44,6 +45,9 @@ class CityController: UIViewController {
             let weatherReport = sender as? CurrentWeather {
             weatherVC.weatherReport = weatherReport
         }
+        guard let weatherVC = segue.destination as? WeatherController else { return }
+                weatherVC.delegate = self
+        weatherVC.hourlyWeather = self.hourlyWeather
     }
     
     
@@ -52,6 +56,7 @@ class CityController: UIViewController {
         if cityTextField.text! == "" {
             print("Нужен алерт")
         } else {
+            
             networkingMain(text: cityTextField.text!, host: WeatherAPI.hostOne)
             networkingCollectionView(text: cityTextField.text!, host: WeatherAPI.hostTwo)
             self.save(cityName: cityTextField.text!)
@@ -120,7 +125,7 @@ extension CityController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = cityList[indexPath.row]
- 
+
         networkingCollectionView(text: city.title!, host: WeatherAPI.hostTwo)
         networkingMain(text: city.title!, host: WeatherAPI.hostOne)
     }
@@ -151,8 +156,8 @@ extension CityController {
                     print(json)
                     let weatherReport = try JSONDecoder().decode(CurrentWeather.self, from: data)
                     print(weatherReport)
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "Go", sender: weatherReport)
+                      DispatchQueue.main.async {
+                          self.performSegue(withIdentifier: "Go", sender: weatherReport)
                     }
                 } catch {
                     print(error)
@@ -177,20 +182,22 @@ extension CityController {
             guard let data = data else {return }
             
             do {
+                
                 let watherData = try JSONDecoder().decode( Welcome.self ,from: data )
                 
-                self.forecastWeather.removeAll()
+                self.hourlyWeather.removeAll()
                 for i in 0...20 {
-                    self.forecastWeather.append(watherData.list[i])
+                    self.hourlyWeather.append(watherData.list[i])
                 }
+            
+                print("Добавилось из сети: \(self.hourlyWeather.count)")
                 
-                print (self.forecastWeather)
-                
-            }catch let jsonErr{
+            }catch let jsonErr {
                 print("Error :" ,jsonErr )
             }
             
         }.resume()
     }
+     
 }
 

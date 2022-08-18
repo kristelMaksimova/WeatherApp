@@ -20,7 +20,6 @@
 		20A245E02892C88800EA7201 /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A245DF2892C88800EA7201 /* WeatherAPI.swift */; };
 		20A245E22892D99800EA7201 /* ForecastWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A245E12892D99800EA7201 /* ForecastWeather.swift */; };
 		20A245E42892F48600EA7201 /* ForecastWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A245E32892F48600EA7201 /* ForecastWeatherCell.swift */; };
-		20A245E62892FFB300EA7201 /* ForecastArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A245E52892FFB300EA7201 /* ForecastArray.swift */; };
 		20E31C54288EDDD900B69EF3 /* CityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E31C53288EDDD900B69EF3 /* CityCell.swift */; };
 		20E31C5628900A1800B69EF3 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E31C5528900A1800B69EF3 /* StorageManager.swift */; };
 /* End PBXBuildFile section */
@@ -41,7 +40,6 @@
 		20A245DF2892C88800EA7201 /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
 		20A245E12892D99800EA7201 /* ForecastWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeather.swift; sourceTree = "<group>"; };
 		20A245E32892F48600EA7201 /* ForecastWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeatherCell.swift; sourceTree = "<group>"; };
-		20A245E52892FFB300EA7201 /* ForecastArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastArray.swift; sourceTree = "<group>"; };
 		20E31C53288EDDD900B69EF3 /* CityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
 		20E31C5528900A1800B69EF3 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,7 +137,6 @@
 			children = (
 				207D5F9E288EBA8B00D31B67 /* CurrentWeather.swift */,
 				20A245E12892D99800EA7201 /* ForecastWeather.swift */,
-				20A245E52892FFB300EA7201 /* ForecastArray.swift */,
 				20A245DF2892C88800EA7201 /* WeatherAPI.swift */,
 			);
 			path = Models;
@@ -224,7 +221,6 @@
 				207D5F9A288EB9F100D31B67 /* CityController.swift in Sources */,
 				20A245E22892D99800EA7201 /* ForecastWeather.swift in Sources */,
 				207D5F9F288EBA8B00D31B67 /* CurrentWeather.swift in Sources */,
-				20A245E62892FFB300EA7201 /* ForecastArray.swift in Sources */,
 				204A595028942DA100A0FE13 /* HourlyForecastCell.swift in Sources */,
 				20E31C54288EDDD900B69EF3 /* CityCell.swift in Sources */,
 				207D5F85288EB6F700D31B67 /* SceneDelegate.swift in Sources */,

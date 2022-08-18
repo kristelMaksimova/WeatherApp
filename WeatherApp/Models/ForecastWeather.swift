@@ -7,15 +7,16 @@
 
 import Foundation
 
+// MARK: - Welcome
 struct Welcome: Codable {
     //let cod: String
     //let message, cnt: Int
     let list: [List]
-    let city: CityT
+    let city: Cit
 }
 
 // MARK: - City
-struct CityT: Codable {
+struct Cit: Codable {
     let id: Int
     let name: String
     let coord: Coord
@@ -94,12 +95,14 @@ enum Pod: String, Codable {
 // MARK: - Weather
 struct Weather: Codable {
     let id: Int
-    let main: MainEnum
-    let weatherDescription, icon: String
+    let main: String
+    let description: String
+    let icon: String
 
-    enum CodingKeys: String, CodingKey {
-        case id, main
-        case weatherDescription = "description"
+    enum CodingKeys: String, CodingKey{
+        case id
+        case main
+        case description = "description"
         case icon
     }
 }
@@ -117,51 +120,3 @@ struct Wind: Codable {
     let deg: Int
     let gust: Double
 }
-
-
-
-
-/*
-
-
-
-struct ForecastWeather: Codable {
-    
-    let list: [listArray]
-    
-    private enum CodingKeys: String, CodingKey{
-        case list
-    }
-}
-
-struct listArray: Codable {
-    let main: listMainTemperature
-    let weather: listWeatherImage
-    let data: String
-    
-    private enum CodingKeys: String, CodingKey{
-        case main
-        case weather
-        case data = "dt_txt"
-    }
-    
-}
-
-struct listMainTemperature: Codable {
-   let temperature: Double
-    
-    private enum CodingKeys: String, CodingKey {
-        case temperature = "temp"
-    }
-}
-struct listWeatherImage: Codable {
-   let image: Double
-    
-    private enum CodingKeys: String, CodingKey {
-        case image = "icon"
-    }
-}
-
-
-// выводить в массиве для дней 8,
-*/

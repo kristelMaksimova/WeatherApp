@@ -14,10 +14,18 @@ class HourlyForecastCell: UICollectionViewCell {
     @IBOutlet weak var hour: UILabel!
     
     
-    func settempCell(temp:String , hour : String /*, img : UIImage*/){
+    func settempCell(temp: String , hour: String, image: String) {
         self.temp.text = temp
         self.hour.text = hour
-      //  self.img.image = img
+        
+        DispatchQueue.global().async {
+            let stringURL = "http://openweathermap.org/img/wn/\(image)@2x.png"
+            guard let url = URL(string: stringURL) else { return }
+            guard let imageData = try? Data(contentsOf: url) else { return }
+            DispatchQueue.main.async {
+                self.img.image = UIImage(data: imageData)
+            }
+        }
     }
 }
 

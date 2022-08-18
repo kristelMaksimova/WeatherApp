@@ -17,15 +17,19 @@ class WeatherController: UIViewController {
     
     
     var weatherReport: CurrentWeather!
-    private var forecastWeather = DataManager.shared.listArray
+    var hourlyWeather = [List] ()
+
+    var delegate: CityController!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         interfaceElements(networkData: weatherReport)
         setupNavigationBar()
     }
     
+
     private func interfaceElements(networkData: CurrentWeather!) {
         
         guard let weatherReport = networkData else {return}
@@ -36,10 +40,21 @@ class WeatherController: UIViewController {
         minMaxTemperature.text = "Max.:\(Int(weatherReport.breakdown.maxTemperature))˚C,  Min.: \(Int(weatherReport.breakdown.minTemperature))˚C"
     }
     
-    func setupNavigationBar() {
+    private func setupNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
     }
     
+    private func convertDateFormater(date: String) -> String {
+        var i = 0
+        var result = ""
+        for s in date {
+            i += 1
+            if i > 10 && i < 16 {
+               result += "\(s)"
+            }
+        }
+        return result + "0"
+    }
 }
 
 //MARK: - Table view data source, delegate
@@ -64,43 +79,20 @@ extension WeatherController: UITableViewDataSource, UITableViewDelegate {
 extension WeatherController: UICollectionViewDataSource, UICollectionViewDelegate {
    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return forecastWeather.count
+        print("В списке для коллекции: \(hourlyWeather.count)")
+        return hourlyWeather.count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "hourlyCell", for: indexPath) as! HourlyForecastCell
         
         cell.settempCell(
-            temp : "\(forecastWeather[indexPath.row].main.temp)" ,
-            hour : fromDtToformatedDate(dt: Double(forecastWeather[indexPath.row].dt) , foramt : "h:mm a")
-            //, img: getWeatherStatusImg( status: forecastWeather[indexPath.row].weather.image[0].main.rawValue )
+            temp: "\(Int(hourlyWeather[indexPath.row].main.temp))˚C",
+            hour: convertDateFormater(date: hourlyWeather[indexPath.row].dtTxt),
+            image: hourlyWeather[indexPath.row].weather[0].icon
         )
         
         return cell
     }
-    
-    func fromDtToformatedDate(dt: Double, foramt : String ) -> String {
-    
-          let date = Date(timeIntervalSince1970: dt)
-        let dateFormatter = DateFormatter()
-          dateFormatter.dateFormat = foramt
-          return dateFormatter.string(from: date)
-      }
-    
-    func getWeatherStatusImg(status : String )->UIImage {
-        switch status {
-        case "Clouds":
-            return UIImage(systemName: "cloud.fill")!
-        case "Rain":
-            return  UIImage(systemName: "cloud.rain.fill")!
-        case "Clear":
-            return UIImage(systemName: "sun.max")!
-        case "Snow":
-            return UIImage(systemName: "cloud.snow.fill")!
-        default:
-            return UIImage(systemName: "cloud.snow.fill")!
-        }
-     
-     }
-    
 }
