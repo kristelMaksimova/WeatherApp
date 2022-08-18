@@ -31,6 +31,7 @@ class CityController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +50,10 @@ class CityController: UIViewController {
             weatherVC.hourlyWeather = self.hourlyWeather
             weatherVC.dailyWeather = self.dailyWeather
         }
+        
+        dismiss(animated: true) {
+            self.cityTextField.text = ""
+        }
     }
     
     
@@ -57,7 +62,7 @@ class CityController: UIViewController {
         if cityTextField.text! == "" {
             print("Нужен алерт")
         } else {
-            networkingMain(text: cityTextField.text!, host: WeatherAPI.hostOne)
+            networkingTableAndColletionViews(text: cityTextField.text!, host: WeatherAPI.hostOne)
             networkingTableAndColletionViews(text: cityTextField.text!, host: WeatherAPI.hostTwo)
             self.save(cityName: cityTextField.text!)
         }
@@ -65,6 +70,7 @@ class CityController: UIViewController {
     
     
     // MARK: - Private methods
+    
     private func save(cityName: String) {
         StorageManager.shared.save(cityName) { city in
             self.cityList.append(city)
@@ -143,45 +149,13 @@ extension CityController: UITableViewDelegate {
         let city = cityList[indexPath.row]
 
         networkingTableAndColletionViews(text: city.title!, host: WeatherAPI.hostTwo)
-        networkingMain(text: city.title!, host: WeatherAPI.hostOne)
+        networkingTableAndColletionViews(text: city.title!, host: WeatherAPI.hostOne)
     }
 }
 
 
 // MARK: - Networking
 extension CityController {
-    
-    func networkingMain(text: String, host: String) {
- 
-        var components = URLComponents(string: host)
-        let cityQuery = URLQueryItem(name: "q", value: text)
-        let appIdQuery = URLQueryItem(name: "appid", value: "b6d1e53fa1e2de6d512ae99663b7137e")
-        let unitsQuery = URLQueryItem(name: "units", value: "metric")
-        
-        components?.queryItems = [cityQuery, appIdQuery, unitsQuery]
-        
-        guard let url = components?.url else {return}
-        
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: url) {(data, _, error) in
-            if let error = error {
-                print(error)
-            } else if let data = data {
-                do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    print(json)
-                    let weatherReport = try JSONDecoder().decode(CurrentWeather.self, from: data)
-                    print(weatherReport)
-                      DispatchQueue.main.async {
-                          self.performSegue(withIdentifier: "Go", sender: weatherReport)
-                    }
-                } catch {
-                    print(error)
-                }
-            }
-        }
-        dataTask.resume()
-    }
     
     func networkingTableAndColletionViews(text: String, host: String) {
         
@@ -198,13 +172,23 @@ extension CityController {
             guard let data = data else {return }
             
             do {
-                
-                let watherData = try JSONDecoder().decode( Welcome.self ,from: data )
-                
-                self.dailyDataFilter(watherData: watherData)
-                self.hourlyDataFilter(watherData: watherData)
-                
-            }catch let jsonErr {
+                if host == WeatherAPI.hostTwo {
+                    let watherData = try JSONDecoder().decode( Welcome.self ,from: data )
+                    
+                    self.dailyDataFilter(watherData: watherData)
+                    self.hourlyDataFilter(watherData: watherData)
+                    
+                } else {
+                    
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(json)
+                    let weatherReport = try JSONDecoder().decode(CurrentWeather.self, from: data)
+                    print(weatherReport)
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "Go", sender: weatherReport)
+                    }
+                }
+            } catch let jsonErr {
                 print("Error :" ,jsonErr )
             }
             
