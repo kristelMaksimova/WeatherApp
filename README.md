@@ -16,3 +16,13 @@ It displays a list of cities that have been added by the user, CoreData acts as 
 
 <img width="321" alt="Снимок экрана 2022-08-19 в 16 49 31" src="https://user-images.githubusercontent.com/51018025/185647915-e509c0c8-9f39-43b2-8715-cd2add9a5e4b.png">
 
+### Weather Controller 
+
+It displays the current weather in the selected city, the weather forecast for 8 hours ahead, as well as the forecast for 5 days.
+
+<img width="324" alt="Снимок экрана 2022-08-19 в 16 50 55" src="https://user-images.githubusercontent.com/51018025/185652783-be6948a9-2a2b-4963-9a2f-e762c9922e4f.png"><img width="321" alt="Снимок экрана 2022-08-19 в 16 51 03" src="https://user-images.githubusercontent.com/51018025/185652798-a6385f42-8bba-497f-b52b-688bcb97526b.png">
+
+
+
+
+
