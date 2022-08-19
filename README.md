@@ -23,6 +23,15 @@ It displays the current weather in the selected city, the weather forecast for 8
 <img width="324" alt="Снимок экрана 2022-08-19 в 16 50 55" src="https://user-images.githubusercontent.com/51018025/185652783-be6948a9-2a2b-4963-9a2f-e762c9922e4f.png"><img width="321" alt="Снимок экрана 2022-08-19 в 16 51 03" src="https://user-images.githubusercontent.com/51018025/185652798-a6385f42-8bba-497f-b52b-688bcb97526b.png">
 
 
-
-
-
+### Used knowledge
+1. MVC pattern
+2. Working with CoreData
+3. Working with Models
+4. Storyboard layout
+5. Table view configuration
+6. Collection view configuration
+7. Custom table view cells
+8. Custom collection view cells
+9. Scroll view 
+10. Networking (JSON)
+11. Application lifecycle
