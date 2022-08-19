@@ -6,9 +6,9 @@ This is a small mobile application where you can see the current weather, a fore
 
 App's two of controllers is:
 
-Tabs controller contains:
-City Controller
-Weather Conroller 
+- Tabs controller contains:
+   - City Controller
+   - Weather Conroller 
 
 ### City Controller 
 
