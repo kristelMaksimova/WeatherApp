@@ -14,9 +14,9 @@ class HourlyCell: UICollectionViewCell {
     @IBOutlet weak var hourlyTime: UILabel!
     
     
-    func settempCell(temp: String , hour: String, image: String) {
+    func settempCell(temp: Double , hour: String, image: String) {
         
-        self.hourlyTemp.text = temp
+        self.hourlyTemp.text = "\(Int(temp))˚C"
         self.hourlyTime.text = convertDateFormater(date: hour)
         
         DispatchQueue.global().async {
@@ -28,8 +28,8 @@ class HourlyCell: UICollectionViewCell {
             }
         }
     }
-    
-    private func convertDateFormater(date: String) -> String {
+   
+    private func convertDateFormater(date: String) -> String { // Обработка даты, чтобы достать время
         var i = 0
         var result = ""
         for s in date {

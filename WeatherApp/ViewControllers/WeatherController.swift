@@ -8,7 +8,7 @@
 import UIKit
 
 class WeatherController: UIViewController {
-
+    
     //MARK: - IBOutlets
     @IBOutlet var currentCity: UILabel!
     @IBOutlet var currentTemp: UILabel!
@@ -30,21 +30,22 @@ class WeatherController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
     
+    // MARK: - Public properties
     var weatherReport: CurrentWeather!
     var delegate: CityController!
     
     var hourlyWeather = [List] ()
     var dailyWeather = [List] ()
     
+    
+    //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
         interfaceElements(networkData: weatherReport)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
+    
     // MARK: - Private method
-
     private func interfaceElements(networkData: CurrentWeather!) {
         
         guard let weatherReport = networkData else {return}
@@ -66,8 +67,24 @@ class WeatherController: UIViewController {
         oneView.layer.cornerRadius = 12
         twoView.layer.cornerRadius = 12
         threeView.layer.cornerRadius = 12
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
-    func fromDtToformatedDate(dt: Double, format : String ) -> String {
+    
+    func fromDtToformatedDate(dt: Double, format : String ) -> String { // Обрабтывает формать числовой (16000...)
+       
+        //        Wednesday, Sep 12, 2018           --> EEEE, MMM d, yyyy
+        //        09/12/2018                        --> MM/dd/yyyy
+        //        09-12-2018 14:11                  --> MM-dd-yyyy HH:mm
+        //        Sep 12, 2:11 PM                   --> MMM d, h:mm a
+        //        September 2018                    --> MMMM yyyy
+        //        Sep 12, 2018                      --> MMM d, yyyy
+        //        Wed, 12 Sep 2018 14:11:54 +0000   --> E, d MMM yyyy HH:mm:ss Z
+        //        2018-09-12T14:11:54+0000          --> yyyy-MM-dd'T'HH:mm:ssZ
+        //        12.09.18                          --> dd.MM.yy
+        //        10:41:02.112                      --> HH:mm:ss.SSS
+        
         let date = Date(timeIntervalSince1970: dt)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
@@ -80,7 +97,6 @@ class WeatherController: UIViewController {
 extension WeatherController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("В списке для коллекции: \(dailyWeather.count)")
         return dailyWeather.count
     }
     
@@ -88,7 +104,7 @@ extension WeatherController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ForecastCell", for: indexPath) as! DailyCell
         
         cell.interfaceElements(
-            temp: "\(Int(dailyWeather[indexPath.row].main.temp))˚C",
+            temp: dailyWeather[indexPath.row].main.temp,
             image: dailyWeather[indexPath.row].weather[0].icon,
             day: dailyWeather[indexPath.row].dtTxt
         )
@@ -98,11 +114,9 @@ extension WeatherController: UITableViewDataSource, UITableViewDelegate {
 
 
 // MARK: UICollectionViewDataSource
-   
 extension WeatherController: UICollectionViewDataSource, UICollectionViewDelegate {
-   
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("В списке для коллекции: \(hourlyWeather.count)")
         return hourlyWeather.count
     }
     
@@ -110,11 +124,10 @@ extension WeatherController: UICollectionViewDataSource, UICollectionViewDelegat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "hourlyCell", for: indexPath) as! HourlyCell
         
         cell.settempCell(
-            temp: "\(Int(hourlyWeather[indexPath.row].main.temp))˚C",
+            temp: hourlyWeather[indexPath.row].main.temp,
             hour: hourlyWeather[indexPath.row].dtTxt,
             image: hourlyWeather[indexPath.row].weather[0].icon
         )
-        
         return cell
     }
 }

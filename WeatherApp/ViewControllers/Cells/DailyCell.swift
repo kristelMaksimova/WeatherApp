@@ -13,8 +13,8 @@ class DailyCell: UITableViewCell {
     @IBOutlet var dailyImage: UIImageView!
     @IBOutlet var dailyTemp: UILabel!
     
-    func interfaceElements(temp: String, image: String, day: String) {
-        self.dailyTemp.text = temp
+    func interfaceElements(temp: Double, image: String, day: String) {
+        self.dailyTemp.text = "\(Int(temp))˚C"
         self.dailyData.text = convertDateFormater(date: day)
         
         DispatchQueue.global().async {
@@ -27,7 +27,7 @@ class DailyCell: UITableViewCell {
         }
     }
     
-    private func convertDateFormater(date: String) -> String {
+    private func convertDateFormater(date: String) -> String { // Обработка даты, чтобы достать время
         var i = 0
         var result = ""
         for s in date {

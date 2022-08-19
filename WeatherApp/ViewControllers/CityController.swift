@@ -17,21 +17,21 @@ class CityController: UIViewController {
     
     // MARK: - Public properties
     var weatherReport: CurrentWeather!
-
+    
     //MARK: - Private Properties
     private var cityList: [City] = []
     
     var hourlyWeather = [List] ()
     var dailyWeather = [List] ()
- 
+    
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     
     //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) // Убирает блый фон
+        navigationController?.navigationBar.shadowImage = UIImage() // Убирает полоску
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,7 +42,7 @@ class CityController: UIViewController {
     
     
     // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) { // Отправляю данный в другой контроллер
         if  let weatherVC = segue.destination as? WeatherController,
             let weatherReport = sender as? CurrentWeather {
             weatherVC.weatherReport = weatherReport
@@ -91,8 +91,7 @@ class CityController: UIViewController {
         }
     }
     
-    private func dailyDataFilter(watherData: Welcome) {
-        
+    private func dailyDataFilter(watherData: Welcome) { // Фильтрует поток данных, пропускает только 1 час за день (чтобы было 5 дней)
         self.dailyWeather.removeAll()
         
         for i in 0...40 {
@@ -100,17 +99,14 @@ class CityController: UIViewController {
                 self.dailyWeather.append(watherData.list[i])
             }
         }
-        print("Добавилось из сети: \(self.dailyWeather.count)")
     }
     
-    private func hourlyDataFilter(watherData: Welcome) {
-        
+    private func hourlyDataFilter(watherData: Welcome) { // Фильтрует поток данных, чтобы было только 8 часов
         self.hourlyWeather.removeAll()
         
         for i in 0...7 {
             self.hourlyWeather.append(watherData.list[i])
         }
-        print("Добавилось из сети: \(self.hourlyWeather.count)")
     }
 }
 
@@ -147,7 +143,6 @@ extension CityController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = cityList[indexPath.row]
-
         networkingTableAndColletionViews(text: city.title!, host: WeatherAPI.hostTwo)
         networkingTableAndColletionViews(text: city.title!, host: WeatherAPI.hostOne)
     }
@@ -172,7 +167,7 @@ extension CityController {
             guard let data = data else {return }
             
             do {
-                if host == WeatherAPI.hostTwo {
+                if host == WeatherAPI.hostTwo { // Обработка того, какую ссылку парсит 
                     let watherData = try JSONDecoder().decode( Welcome.self ,from: data )
                     
                     self.dailyDataFilter(watherData: watherData)
