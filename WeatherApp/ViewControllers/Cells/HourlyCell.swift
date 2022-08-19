@@ -29,7 +29,7 @@ class HourlyCell: UICollectionViewCell {
         }
     }
    
-    private func convertDateFormater(date: String) -> String { // Обработка даты, чтобы достать время
+    private func convertDateFormater(date: String) -> String {
         var i = 0
         var result = ""
         for s in date {

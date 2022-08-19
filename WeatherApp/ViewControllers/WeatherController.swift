@@ -72,7 +72,7 @@ class WeatherController: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    func fromDtToformatedDate(dt: Double, format : String ) -> String { // Обрабтывает формать числовой (16000...)
+    func fromDtToformatedDate(dt: Double, format : String ) -> String {
        
         //        Wednesday, Sep 12, 2018           --> EEEE, MMM d, yyyy
         //        09/12/2018                        --> MM/dd/yyyy
